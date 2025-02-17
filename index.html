@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attribit - Digital Solutions</title>
+    <link rel="icon" href="images/smalllogo.png" type="image/x-icon">
+    <meta name="description" content="Attribit is a web development agency specializing in creating stunning and effective websites. We offer website design, development, and maintenance services to help businesses thrive online. Contact us today!">
+    <meta name="description" content="Transform your online presence with Attribit's expert web design services. We craft visually appealing and user-friendly websites that capture your brand and drive results. Get a free design consultation!">
+    <meta name="description" content="Attribit provides cutting-edge web development solutions, from custom web applications to e-commerce platforms. Our experienced developers build robust and scalable websites tailored to your specific needs.">
+    <meta name="description" content="Need a WordPress website? Attribit specializes in WordPress design and development. We create custom WordPress sites that are beautiful, functional, and optimized for search engines.">
+    <meta name="description" content="Attribit is a India-based web development agency helping businesses in [Anywhere In The World] achieve online success. We offer web design, development, and SEO services. Contact us for a free quote!">
+    <meta name="description" content="Drive more traffic and grow your business with Attribit's results-driven web development services. We build websites that are not only beautiful but also optimized for conversions.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 40;
+            display: none;
+        }
+
+        #mobile-menu.is-active {
+            display: block;
+        }
+
+        /* Hamburger Button */
+        #hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: white;
+            position: absolute;
+            left: 9px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line:nth-child(1) {
+            top: 13px;
+        }
+
+        .hamburger-line:nth-child(2) {
+            top: 19px;
+        }
+
+        .hamburger-line:nth-child(3) {
+            top: 25px;
+        }
+
+        #hamburger.is-active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+
+        #hamburger.is-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        #hamburger.is-active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
+        }
+
+        @media (max-width: 1023px) {
+            .desktop-menu {
+                display: none;
+            }
+            #hamburger {
+                display: inline-block;
+            }
+            .mobile-link {
+                display: block;
+                color: white;
+                font-size: 1.125rem;
+                padding: 1rem;
+                text-align: center;
+            }
+            .mobile-link:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        /* Menu Styles */
+        .nav-menu {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-100%);
+            visibility: hidden;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        .hamburger-btn {
+            --button-color: white;
+            position: relative;
+            padding: 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            outline-offset: 4px;
+        }
+
+        .hamburger-btn:focus-visible {
+            outline: 2px solid var(--button-color);
+            outline-offset: 4px;
+        }
+
+        .hamburger-btn[aria-expanded="true"] .hamburger-icon::before {
+            transform: translateY(0) rotate(45deg);
+        }
+
+        .hamburger-btn[aria-expanded="true"] .hamburger-icon::after {
+            transform: translateY(0) rotate(-45deg);
+        }
+
+        .hamburger-btn[aria-expanded="true"] .hamburger-icon {
+            background: transparent;
+        }
+
+        .hamburger-icon,
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            width: 24px;
+            height: 2px;
+            background-color: var(--button-color);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hamburger-icon {
+            position: relative;
+            display: block;
+        }
+
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        .hamburger-icon::before {
+            transform: translateY(-6px);
+        }
+
+        .hamburger-icon::after {
+            transform: translateY(6px);
+        }
+
+        @media (max-width: 1023px) {
+            #scroll-down {
+                display: none;
+            }
+            .nav-link {
+                font-size: 0.875rem;
+                padding: 0.75rem;
+                display: block;
+                color: white;
+                transition: color 0.2s ease;
+            }
+            .nav-link:hover {
+                color: #cbd5e0;
+            }
+            .nav-link:focus-visible {
+                outline: 2px solid white;
+                outline-offset: 2px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hamburger-btn {
+                display: none;
+            }
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* No JavaScript fallback */
+        .no-js .hamburger-btn {
+            display: none;
+        }
+        .no-js .nav-menu {
+            position: static;
+            transform: none;
+            visibility: visible;
+            background: none;
+            padding: 0;
+        }
+        .no-js .nav-menu a {
+            color: inherit;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #000;
+            color: #9ca3af;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        footer .highlight {
+            color: #6366f1;
+        }
+
+        footer a {
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        footer .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        footer .social-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        footer i {
+            transition: color 0.2s;
+        }
+
+        footer i:hover {
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white overflow-x-hidden no-js">
+    <!-- Navbar -->
+    <header class="fixed w-full top-0 left-0 z-50">
+        <nav class="glassmorphism">
+            <div class="container mx-auto px-4 lg:px-8">
+                <div class="flex items-center justify-between h-14">
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center">
+                        <span class="logo-text text-xl">attrib<span class="highlight">it</span></span>
+                    </a>
+
+                    <!-- Desktop Menu -->
+                    <div class="desktop-menu flex items-center space-x-6">
+                        <a href="#home" class="nav-link text-sm">Home</a>
+                        <a href="#services" class="nav-link text-sm">Services</a>
+                        <a href="#portfolio" class="nav-link text-sm">Portfolio</a>
+                        <a href="#about" class="nav-link text-sm">About</a>
+                        <a href="#contact" class="nav-link text-sm">Contact</a>
+                    </div>
+
+                    <!-- Hamburger Button -->
+                    <button id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu">
+            <div class="container mx-auto px-4 pt-20">
+                <nav class="flex flex-col">
+                    <a href="#home" class="mobile-link">Home</a>
+                    <a href="#services" class="mobile-link">Services</a>
+                    <a href="#portfolio" class="mobile-link">Portfolio</a>
+                    <a href="#about" class="mobile-link">About</a>
+                    <a href="#contact" class="mobile-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="hero-orb parallax" data-speed="0.2"></div>
+        <div class="hero-orb parallax" data-speed="-0.1"></div>
+        <div class="hero-orb parallax" data-speed="0.3"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center text-center relative z-10">
+            <div class="max-w-2xl reveal-section">
+                <div class="flex items-center justify-center space-x-2 mb-4 reveal-item">
+                    <i data-lucide="sparkles" class="h-5 w-5 text-indigo-400"></i>
+                    <span class="text-indigo-400 font-medium text-sm">Innovation Meets Excellence</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight reveal-item">
+                    Elevate Your Digital<br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Presence</span>
+                </h1>
+                
+                <p class="text-sm text-gray-400 mt-4 tracking-wide uppercase reveal-item" style="letter-spacing: 0.15em;">
+                    Innovation • Excellence • Results
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 reveal-item mt-6">
+                    <button class="premium-button inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-all">
+                        Start Your Project
+                        <i data-lucide="arrow-right" class="ml-2 h-4 w-4"></i>
+                    </button>
+                    <button class="premium-button-outline inline-flex items-center px-5 py-2.5 border-2 border-white text-sm font-medium rounded-md text-white hover:bg-white/10 transition-all">
+                        View Our Work
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Our Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We offer a comprehensive suite of digital solutions to help your business thrive in the modern digital landscape.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Web Development -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="code-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Web Development</h3>
+                    <p class="text-gray-600">Custom web applications and websites that are fast, responsive, and user-friendly.</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            Frontend Development
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            Backend Development
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            API Integration
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- UI/UX Design -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="palette" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">UI/UX Design</h3>
+                    <p class="text-gray-600">Beautiful and intuitive interfaces that enhance user experience and engagement.</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            User Interface Design
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            User Experience Design
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            Prototyping
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Digital Marketing -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i data-lucide="trending-up" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Digital Marketing</h3>
+                    <p class="text-gray-600">Strategic digital marketing solutions to grow your online presence and reach.</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            SEO Optimization
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            Content Strategy
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i data-lucide="check" class="w-5 h-5 mr-2 text-indigo-600"></i>
+                            Social Media Marketing
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Our Work</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Explore our portfolio of successful projects and see how we've helped businesses achieve their digital goals.</p>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="E-commerce Website" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-commerce Website</h3>
+                        <p class="text-gray-600 mb-4">Custom-built e-commerce platform with advanced product filtering and secure checkout system.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">React.js</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Stripe API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="Corporate Website" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Corporate Website</h3>
+                        <p class="text-gray-600 mb-4">Modern corporate website with dynamic content management and interactive features.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Next.js</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">Tailwind CSS</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Sanity CMS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="Analytics Dashboard" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Analytics Dashboard</h3>
+                        <p class="text-gray-600 mb-4">Real-time analytics dashboard with interactive charts and data visualization.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-600 rounded-full text-sm">Vue.js</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm">D3.js</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="Learning Management System" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Learning Management System</h3>
+                        <p class="text-gray-600 mb-4">Educational platform with course management, video streaming, and progress tracking.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full text-sm">Django</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="Social Media Platform" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Social Media Platform</h3>
+                        <p class="text-gray-600 mb-4">Community platform with real-time chat, post sharing, and user interactions.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Socket.io</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Express.js</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-card group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" alt="Project Management Tool" class="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Project Management Tool</h3>
+                        <p class="text-gray-600 mb-4">Web-based project management system with task tracking and team collaboration.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-sky-100 text-sky-600 rounded-full text-sm">Angular</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full text-sm">ASP.NET Core</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-sm">SQL Server</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        Crafting Digital Excellence Since 2010
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        At Attribit, we're more than just developers – we're digital craftsmen passionate about creating exceptional web experiences that drive business growth.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i data-lucide="users" class="h-6 w-6 text-indigo-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Expert Team</h3>
+                                <p class="mt-2 text-gray-600">
+                                    Our team of seasoned professionals brings diverse expertise to every project.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i data-lucide="target" class="h-6 w-6 text-indigo-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Client-Focused</h3>
+                                <p class="mt-2 text-gray-600">
+                                    We prioritize understanding your needs to deliver tailored solutions.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i data-lucide="award" class="h-6 w-6 text-indigo-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Award-Winning</h3>
+                                <p class="mt-2 text-gray-600">
+                                    Recognized for excellence in web development and design.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
+                         alt="Team collaboration"
+                         class="rounded-lg shadow-xl">
+                    <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-lg shadow-lg">
+                        <div class="grid grid-cols-3 gap-8 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-indigo-600">200+</div>
+                                <div class="text-sm text-gray-600">Projects</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-indigo-600">50+</div>
+                                <div class="text-sm text-gray-600">Clients</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-indigo-600">12+</div>
+                                <div class="text-sm text-gray-600">Awards</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Get in Touch
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Ready to start your next project? Contact us today for a free consultation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" required
+                                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        </div>
+
+                        <button type="submit"
+                                class="w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i data-lucide="mail" class="h-6 w-6 text-indigo-600"></i>
+                                <span class="ml-4 text-gray-600">hello@attribit.in</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="phone" class="h-6 w-6 text-indigo-600"></i>
+                                <span class="ml-4 text-gray-600">+91 8179470832</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="map-pin" class="h-6 w-6 text-indigo-600"></i>
+                                <span class="ml-4 text-gray-600">
+                                    Eluru, Andhra Pradesh, India, 534001
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe title="map" class="w-full h-64 rounded-lg shadow-md"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61139.72979560175!2d81.06170020889228!3d16.715216552570375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3614cc2ea6ae59%3A0x2e3037c889ff351b!2sEluru%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1739681189459!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <div class="footer-logo">
+                        <span class="logo-text">attrib<span class="highlight">it</span></span>
+                    </div>
+                    <p class="text-gray-400">
+                        Transforming ideas into powerful digital solutions. We specialize in creating innovative web experiences that drive business growth.
+                    </p>
+                    <div class="social-links flex space-x-6">
+                        <a href="#" aria-label="Facebook">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" aria-label="X (formerly Twitter)">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-lg font-semibold">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-lg font-semibold">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#web-development">Web Development</a></li>
+                        <li><a href="#mobile-apps">Mobile Apps</a></li>
+                        <li><a href="#ui-design">UI/UX Design</a></li>
+                        <li><a href="#consulting">Consulting</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-lg font-semibold">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-indigo-500"></i>
+                            <span>Eluru, AndhraPradesh, India, 534001</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-indigo-500"></i>
+                            <span>+91 8179470832</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-indigo-500"></i>
+                            <span>hello@attribit.in</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-6 pt-4 pb-2 text-center text-sm">
+                <p>&copy; 2025 Attribit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>

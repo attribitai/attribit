@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Image Generator</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, sans-serif; }
+        .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .card {
+            width: 600px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+        }
+        .card > * { position: relative; z-index: 1; }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #ecommerce { background: linear-gradient(135deg, #4f46e5, #9333ea); }
+        #mobile-app { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+        #ai-analytics { background: linear-gradient(135deg, #10b981, #3b82f6); }
+        #blockchain { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+        #iot { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+        #saas { background: linear-gradient(135deg, #14b8a6, #6366f1); }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="ecommerce">
+            <i class="icon fas fa-shopping-cart"></i>
+            <div class="title">E-commerce Platform</div>
+            <div>Modern Shopping Experience</div>
+        </div>
+        <div class="card" id="mobile-app">
+            <i class="icon fas fa-mobile-alt"></i>
+            <div class="title">Health & Fitness App</div>
+            <div>Track Your Progress</div>
+        </div>
+        <div class="card" id="ai-analytics">
+            <i class="icon fas fa-brain"></i>
+            <div class="title">AI Analytics Dashboard</div>
+            <div>Intelligent Insights</div>
+        </div>
+        <div class="card" id="blockchain">
+            <i class="icon fas fa-cube"></i>
+            <div class="title">Blockchain Platform</div>
+            <div>Secure Transactions</div>
+        </div>
+        <div class="card" id="iot">
+            <i class="icon fas fa-home"></i>
+            <div class="title">Smart Home IoT</div>
+            <div>Connected Living</div>
+        </div>
+        <div class="card" id="saas">
+            <i class="icon fas fa-tasks"></i>
+            <div class="title">SaaS Management</div>
+            <div>Cloud Solutions</div>
+        </div>
+    </div>
+</body>
+</html>
